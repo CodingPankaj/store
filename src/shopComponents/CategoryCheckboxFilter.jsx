@@ -1,47 +1,65 @@
 import { useEffect, useState } from "react";
 import { CategoryTitle } from "./CategoryTitle";
-import axios from "axios";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-export const CategoryCheckboxFilter = () => {
-  const [brands, setBrands] = useState([]);
-
-  const getAllBrands = async () => {
-    try {
-      const res = await axios.get(
-        "https://wscubetech.co/ecommerce-api/categories.php",
-      );
-      setBrands(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export const CategoryCheckboxFilter = ({ data, filterFunction, catTitle }) => {
+  const [filterAccordion, setFilterAccordion] = useState(false);
+  const [applyFilter, setApplyFilter] = useState([]);
 
   useEffect(() => {
-    getAllBrands();
-  }, []);
+    filterFunction(applyFilter.join(","));
+  }, [applyFilter]);
 
   return (
-    <div>
-      <CategoryTitle title="Brand" />
-      <ul className="py-2 text-sm font-medium">
-        {brands && brands.length >= 1
-          ? brands.map((brand) => (
-              <CheckboxFilterItem key={brand.id} brand={brand} />
-            ))
-          : "Loading Brand"}
-      </ul>
+    <div className="flex w-full flex-col border-b border-color-shadow-blue">
+      <button
+        onClick={() => setFilterAccordion(!filterAccordion)}
+        className="flex w-full items-center justify-between"
+      >
+        <CategoryTitle title={catTitle} />
+        <MdKeyboardArrowRight />
+      </button>
+      <div
+        className={`grid ${filterAccordion ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} transition-all duration-500`}
+      >
+        <div className="row-span-2 overflow-hidden">
+          <ul className="py-2 text-sm font-medium">
+            {data && data.length >= 1
+              ? data.map((item) => (
+                  <CheckboxFilterItem
+                    key={item.id}
+                    item={item}
+                    applyFilter={applyFilter}
+                    setApplyFilter={setApplyFilter}
+                  />
+                ))
+              : "Loading Brand"}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
 
-const CheckboxFilterItem = ({ brand }) => {
-  const { id, name, slug } = brand;
+const CheckboxFilterItem = ({ item, setApplyFilter, applyFilter }) => {
+  const { id, name, slug } = item;
+
+  const handleChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setApplyFilter((prev) => [...prev, value]);
+    } else {
+      setApplyFilter(() => applyFilter.filter((item) => item !== value));
+    }
+  };
+
   return (
     <li className="px-4 py-2 text-color-navy-blue">
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
-          value={id}
+          value={slug}
+          onChange={handleChange}
           className="relative size-4 appearance-none before:absolute before:left-0 before:top-0 before:size-4 before:rounded before:border before:border-color-shadow-blue checked:before:border-color-green checked:before:bg-color-green"
         />
         <span>{name}</span>

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export const HeaderNavbar = () => {
   return (
-    <nav className="flex items-center">
+    <nav className="hidden items-center lg:flex">
       <ul className="flex items-center gap-2">
         <NavItems label={"Home"} path={"/"} />
         <NavItems label={"Shop"} path={"/shop"} />

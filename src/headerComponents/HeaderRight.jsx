@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const HeaderRight = () => {
   return (
     <div className="flex items-center justify-end">
-      <ul className="flex items-center gap-5">
+      <ul className="flex items-center gap-3 lg:gap-5">
         <HeaderActions>
           <GoHeart />
           <HeaderActionsItemCounter />
@@ -14,9 +14,6 @@ export const HeaderRight = () => {
         <HeaderActions>
           <HiOutlineShoppingBag />
           <HeaderActionsItemCounter />
-        </HeaderActions>
-        <HeaderActions>
-          <CgProfile />
         </HeaderActions>
       </ul>
     </div>
@@ -33,7 +30,7 @@ const HeaderActions = ({ children }) => {
 
 const HeaderActionsItemCounter = () => {
   return (
-    <span className="bg-color-yellow text-color-navy-blue absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full text-xs">
+    <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-color-yellow text-xs text-color-navy-blue">
       0
     </span>
   );
