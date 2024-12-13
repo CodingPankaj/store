@@ -23,3 +23,7 @@
   --color-green: #a8df8e;
   --color-purple: #d0a2f7;
 }
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}

@@ -2,22 +2,30 @@ import { useEffect, useState } from "react";
 import { CategoryTitle } from "./CategoryTitle";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-export const CategoryCheckboxFilter = ({ data, filterFunction, catTitle }) => {
+export const CategoryCheckboxFilter = ({
+  data,
+  filterFunction,
+  catTitle,
+  applyFilter,
+  setApplyFilter,
+}) => {
   const [filterAccordion, setFilterAccordion] = useState(false);
-  const [applyFilter, setApplyFilter] = useState([]);
 
   useEffect(() => {
     filterFunction(applyFilter.join(","));
+    console.log(applyFilter);
   }, [applyFilter]);
 
   return (
-    <div className="flex w-full flex-col border-b border-color-shadow-blue">
+    <div className="border-color-shadow-blue/60 flex w-full flex-col border-b">
       <button
         onClick={() => setFilterAccordion(!filterAccordion)}
         className="flex w-full items-center justify-between"
       >
         <CategoryTitle title={catTitle} />
-        <MdKeyboardArrowRight />
+        <MdKeyboardArrowRight
+          className={`text-2xl transition-all duration-200 ${filterAccordion ? "rotate-90" : ""}`}
+        />
       </button>
       <div
         className={`grid ${filterAccordion ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} transition-all duration-500`}
@@ -54,12 +62,13 @@ const CheckboxFilterItem = ({ item, setApplyFilter, applyFilter }) => {
   };
 
   return (
-    <li className="px-4 py-2 text-color-navy-blue">
+    <li className="py-2 text-color-navy-blue">
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
           value={slug}
           onChange={handleChange}
+          checked={applyFilter.includes(slug)}
           className="relative size-4 appearance-none before:absolute before:left-0 before:top-0 before:size-4 before:rounded before:border before:border-color-shadow-blue checked:before:border-color-green checked:before:bg-color-green"
         />
         <span>{name}</span>
