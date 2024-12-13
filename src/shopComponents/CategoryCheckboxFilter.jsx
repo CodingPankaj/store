@@ -9,15 +9,14 @@ export const CategoryCheckboxFilter = ({
   applyFilter,
   setApplyFilter,
 }) => {
-  const [filterAccordion, setFilterAccordion] = useState(false);
+  const [filterAccordion, setFilterAccordion] = useState(true);
 
   useEffect(() => {
     filterFunction(applyFilter.join(","));
-    console.log(applyFilter);
   }, [applyFilter]);
 
   return (
-    <div className="border-color-shadow-blue/60 flex w-full flex-col border-b">
+    <div className="border-color-shadow-blue/60 flex w-full flex-col border-b py-3">
       <button
         onClick={() => setFilterAccordion(!filterAccordion)}
         className="flex w-full items-center justify-between"

@@ -5,19 +5,35 @@ import { ShopContext } from "../pages/Shop";
 import { MdClose } from "react-icons/md";
 import { MainContext } from "../context/MainContext";
 import { ResetFilter } from "./ReserFilter";
+import { RangeFilter } from "./RangeFilter";
+import { RatingFilter } from "./RatingFilter";
+import { SortingFilter } from "./SortingFilter";
 
 export const ShopFilter = () => {
-  const { brands, category, setFilterCategory, setFilterBrand } =
-    useContext(ShopContext);
+  const {
+    brands,
+    category,
+    setFilterCategory,
+    setFilterBrand,
+    setPriceTo,
+    setPriceFrom,
+  } = useContext(ShopContext);
+
   const { isFilterOpen, toggleFilter } = useContext(MainContext);
   const [applyCategoryFilter, setApplyCategoryFilter] = useState([]);
   const [applyBrandFilter, setApplyBrandFilter] = useState([]);
+  const [sortingFilter, setSortingFilter] = useState(null);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const resetFilter = () => {
     setFilterCategory("");
     setFilterBrand("");
     setApplyCategoryFilter([]);
     setApplyBrandFilter([]);
+    setSortingFilter(null);
+    setMinPrice("");
+    setMaxPrice("");
   };
   return (
     <div
@@ -32,6 +48,19 @@ export const ShopFilter = () => {
       <Title title="Filter Product" />
 
       <div className="scrollbar-hidden flex grow flex-col overflow-y-scroll">
+        <SortingFilter
+          sortingFilter={sortingFilter}
+          setSortingFilter={setSortingFilter}
+        />
+        <RangeFilter
+          title="Price"
+          setFilterFrom={setPriceFrom}
+          setFilterTo={setPriceTo}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+        />
         <CategoryCheckboxFilter
           data={category}
           filterFunction={setFilterCategory}
@@ -46,6 +75,9 @@ export const ShopFilter = () => {
           setApplyFilter={setApplyBrandFilter}
           catTitle="Brands"
         />
+
+        {/* <RangeFilter title="Discount" /> */}
+        <RatingFilter title="Rating" />
       </div>
 
       <ResetFilter resetFilter={resetFilter} />
