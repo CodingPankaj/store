@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { CategoryTitle } from "./CategoryTitle";
-import { ShopContext } from "../pages/Shop";
+import { ShopContext } from "../context/ShopContext";
 
 export const SortingFilter = ({ sortingFilter, setSortingFilter }) => {
   const { setSorting } = useContext(ShopContext);
@@ -17,7 +17,7 @@ export const SortingFilter = ({ sortingFilter, setSortingFilter }) => {
         <select
           name="sorting"
           onChange={(e) => setSortingFilter(e.target.value)}
-          className="border-color-shadow-blue/50 w-full border px-2 py-2 text-sm font-medium text-color-navy-blue outline-none"
+          className="w-full border border-color-shadow-blue/50 px-2 py-2 text-sm font-medium text-color-navy-blue outline-none"
         >
           <option value="">Default</option>
           <option value="1">Name ASC</option>

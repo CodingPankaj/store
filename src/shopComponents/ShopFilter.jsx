@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Title } from "../components/Title";
 import { CategoryCheckboxFilter } from "./CategoryCheckboxFilter";
-import { ShopContext } from "../pages/Shop";
 import { MdClose } from "react-icons/md";
 import { MainContext } from "../context/MainContext";
 import { ResetFilter } from "./ReserFilter";
 import { RangeFilter } from "./RangeFilter";
 import { RatingFilter } from "./RatingFilter";
 import { SortingFilter } from "./SortingFilter";
+import { ShopContext } from "../context/ShopContext";
 
 export const ShopFilter = () => {
   const {
@@ -23,8 +23,8 @@ export const ShopFilter = () => {
   const [applyCategoryFilter, setApplyCategoryFilter] = useState([]);
   const [applyBrandFilter, setApplyBrandFilter] = useState([]);
   const [sortingFilter, setSortingFilter] = useState(null);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(50000);
 
   const resetFilter = () => {
     setFilterCategory("");
@@ -32,8 +32,8 @@ export const ShopFilter = () => {
     setApplyCategoryFilter([]);
     setApplyBrandFilter([]);
     setSortingFilter(null);
-    setMinPrice("");
-    setMaxPrice("");
+    setMinPrice(0);
+    setMaxPrice(50000);
   };
   return (
     <div
