@@ -22,7 +22,7 @@ function App() {
           element: <Shop />,
         },
         {
-          path: "/shop",
+          path: "/product/:productUrlId",
           element: <Product />,
         },
         {

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { GoStarFill } from "react-icons/go";
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export const ProductCard = ({ product }) => {
-  const { name, brand_name, price, image, rating } = product;
+  const { name, brand_name, price, image, rating, slug } = product;
   const [itemInWishlist, setItemInWishlist] = useState(false);
   return (
     <div className="flex flex-col gap-3 rounded-[10px] bg-color-white p-2 md:p-3">
@@ -23,9 +24,11 @@ export const ProductCard = ({ product }) => {
         </span>
       </div>
       <div className="flex grow flex-col gap-1">
-        <h3 className="line-clamp-2 text-base font-bold tracking-wide text-color-navy-blue">
-          {name}
-        </h3>
+        <Link to={`/product/${slug}`}>
+          <h3 className="line-clamp-2 text-base font-bold tracking-wide text-color-navy-blue">
+            {name}
+          </h3>
+        </Link>
         <span className="mb-auto text-xs font-medium text-color-shadow-blue">
           {brand_name.length > 0 ? brand_name : "N/A"}
         </span>

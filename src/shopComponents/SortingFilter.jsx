@@ -1,9 +1,15 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CategoryTitle } from "./CategoryTitle";
 import { ShopContext } from "../context/ShopContext";
 
 export const SortingFilter = ({ sortingFilter, setSortingFilter }) => {
   const { setSorting } = useContext(ShopContext);
+  let [filter1, setFilter] = useState("");
+
+  const handleSelect = (e) => {
+    setSortingFilter(e.target.value);
+    setFilter(e.target.value);
+  };
 
   useEffect(() => {
     setSorting(sortingFilter);
@@ -16,7 +22,8 @@ export const SortingFilter = ({ sortingFilter, setSortingFilter }) => {
       <div className="w-full pb-3">
         <select
           name="sorting"
-          onChange={(e) => setSortingFilter(e.target.value)}
+          value={sortingFilter === filter1 ? sortingFilter : ""}
+          onChange={handleSelect}
           className="w-full border border-color-shadow-blue/50 px-2 py-2 text-sm font-medium text-color-navy-blue outline-none"
         >
           <option value="">Default</option>
